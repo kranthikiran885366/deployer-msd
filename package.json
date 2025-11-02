@@ -9,7 +9,7 @@
     "start": "next start",
     "dev:backend": "cd server && npm run dev",
     "dev:full": "concurrently \"npm run dev\" \"npm run dev:backend\"",
-    "install:all": "npm install && cd server && npm install"
+    "install:all": "npm install --legacy-peer-deps && cd server && npm install"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
