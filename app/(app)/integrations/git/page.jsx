@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { AlertCircle, CheckCircle, Plus, Trash2, RefreshCw, GitBranch, GitHub, GitLab, Copy, Link, Settings } from 'lucide-react';
+import { AlertCircle, CheckCircle, Plus, Trash2, RefreshCw, GitBranch, Copy, Link, Settings, Code2, GitFork } from 'lucide-react';
 import apiClient from '@/lib/api-client';
 
 export default function GitRepositoriesPage() {
@@ -202,8 +202,8 @@ export default function GitRepositoriesPage() {
   const deployOnPushCount = repos.filter(r => r.deployOnPush).length;
 
   const providerIcons = {
-    github: <GitHub className="w-5 h-5" />,
-    gitlab: <GitLab className="w-5 h-5" />
+    github: <Code2 className="w-5 h-5" />,
+    gitlab: <GitFork className="w-5 h-5" />
   };
 
   return (

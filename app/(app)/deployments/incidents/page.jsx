@@ -30,6 +30,7 @@ export default function IncidentsManagementPage() {
   });
 
   // Removed mock data - using backend integration
+  const mockIncidents = [
     {
       id: 1,
       title: 'Database Connection Pool Exhaustion',

@@ -31,6 +31,7 @@ export default function WebhooksManagementPage() {
   });
 
   // Removed mock data - using backend integration
+  const mockWebhooks = [
     {
       id: 1,
       url: 'https://api.example.com/webhooks/deployment',

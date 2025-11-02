@@ -18,6 +18,7 @@ export default function UptimeDashboardPage() {
   const [timeRange, setTimeRange] = useState('30d'); // 7d, 30d, 90d
 
   // Removed mock data - using backend integration
+  const mockUptimeMetrics = {
     uptime24h: 99.98,
     uptime7d: 99.92,
     uptime30d: 99.89,

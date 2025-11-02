@@ -32,6 +32,7 @@ export default function EscalationPoliciesPage() {
   const [selectedPolicy, setSelectedPolicy] = useState(null);
 
   // Removed mock data - using backend integration
+  const mockPolicies = [
     {
       id: 1,
       name: 'Critical Incident Escalation',

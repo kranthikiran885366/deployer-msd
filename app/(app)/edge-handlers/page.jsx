@@ -233,8 +233,8 @@ export default function EdgeHandlersPage() {
             <Button type="submit" disabled={creating}>
               {creating ? 'Creating...' : 'Create Handler'}
             </Button>
-          </CardContent>
           </form>
+          </CardContent>
         </Card>
 
         <Card>
