@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
           <Suspense fallback={null}>
             {children}
             <Toaster />
-            <Analytics />
+            {!process.env.NEXT_PUBLIC_DISABLE_VERCEL_ANALYTICS && <Analytics />}
           </Suspense>
         </ThemeProvider>
       </body>
