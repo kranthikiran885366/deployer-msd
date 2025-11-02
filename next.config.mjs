@@ -9,10 +9,10 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@': require('path').resolve(__dirname, '.'),
+      '@': new URL('.', import.meta.url).pathname,
     }
     return config
   },
