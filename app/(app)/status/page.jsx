@@ -18,9 +18,10 @@ export default function StatusPage() {
   useEffect(() => {
     const fetchSystemStatus = async () => {
       try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://deployer-msd-1.onrender.com/api';
         const [statusRes, incidentsRes] = await Promise.all([
-          fetch('/api/status/system'),
-          fetch('/api/status/incidents')
+          fetch(`${apiUrl}/status`),
+          fetch(`${apiUrl}/incidents`)
         ]);
 
         if (!statusRes.ok || !incidentsRes.ok) {

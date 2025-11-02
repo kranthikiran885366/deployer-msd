@@ -1,5 +1,7 @@
 "use client"
 
+export const dynamic = 'force-dynamic';
+
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Github, Rocket, Database, BarChart3, Shield, Server, Zap, ArrowRight, Star, Users, Globe, CheckCircle, HelpCircle, Activity, Bell } from "lucide-react"
@@ -569,7 +571,8 @@ function StatusSummary() {
     const fetchStatus = async () => {
       try {
         setLoading(true);
-        const res = await fetch('/api/status/system');
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://deployer-msd-1.onrender.com/api';
+        const res = await fetch(`${apiUrl}/status`);
         if (!res.ok) throw new Error('Failed to fetch status');
         const data = await res.json();
         setStatus(data);

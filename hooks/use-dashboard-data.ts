@@ -73,10 +73,10 @@ export function useDashboardData(pollingInterval = 30000) {
         cronjobsRes
       ] = await Promise.allSettled([
         apiClient.getProjects().catch(() => []),
-        apiClient.getDeployments('all').catch(() => []),
-        apiClient.getDatabases('all').catch(() => []),
-        apiClient.getFunctions('all').catch(() => []),
-        apiClient.getCronJobs('all').catch(() => [])
+        apiClient.getAllDeployments().catch(() => []),
+        apiClient.getDatabases().catch(() => []),
+        apiClient.request('/api/functions').catch(() => []),
+        apiClient.request('/api/cronjobs').catch(() => [])
       ]);
 
       const projectsData = projectsRes.status === 'fulfilled' ? projectsRes.value : [];

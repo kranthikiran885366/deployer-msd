@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+
+export const dynamic = 'force-dynamic';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -11,10 +13,28 @@ import { useSession } from 'next-auth/react';
 import axios from 'axios';
 
 export default function ProfilePage() {
-  const { data: session } = useSession();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState(null);
+  const [sessionData, setSessionData] = useState(null);
+  const [sessionStatus, setSessionStatus] = useState('loading');
+  
+  // Use useSession conditionally
+  let session = null;
+  let status = 'loading';
+  try {
+    const sessionResult = useSession();
+    session = sessionResult.data;
+    status = sessionResult.status;
+  } catch (error) {
+    // Handle case where session provider is not available
+    status = 'unauthenticated';
+  }
+  
+  useEffect(() => {
+    setSessionData(session);
+    setSessionStatus(status);
+  }, [session, status]);
   const [isEditing, setIsEditing] = useState(false);
   const [tempProfile, setTempProfile] = useState(null);
   const [socialLinks, setSocialLinks] = useState({
@@ -113,8 +133,12 @@ export default function ProfilePage() {
     }
   };
 
-  if (isLoading) {
+  if (sessionStatus === 'loading' || isLoading) {
     return <div className="p-6">Loading...</div>;
+  }
+
+  if (sessionStatus === 'unauthenticated') {
+    return <div className="p-6">Please sign in to view your profile</div>;
   }
 
   if (!profile) {
@@ -164,19 +188,19 @@ export default function ProfilePage() {
           {/* Profile Stats */}
           <div className="grid grid-cols-4 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
             <div className="text-center">
-              <p className="text-2xl font-bold">{publicProfile.profileViews}</p>
+              <p className="text-2xl font-bold">{profile.stats?.profileViews || 0}</p>
               <p className="text-sm text-gray-600">Profile Views</p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold">{publicProfile.followers}</p>
+              <p className="text-2xl font-bold">{profile.stats?.followers || 0}</p>
               <p className="text-sm text-gray-600">Followers</p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold">{publicProfile.projects}</p>
+              <p className="text-2xl font-bold">{profile.stats?.projects || 0}</p>
               <p className="text-sm text-gray-600">Projects</p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold">{publicProfile.contributions}</p>
+              <p className="text-2xl font-bold">{profile.stats?.contributions || 0}</p>
               <p className="text-sm text-gray-600">Contributions</p>
             </div>
           </div>
