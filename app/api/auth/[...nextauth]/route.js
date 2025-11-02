@@ -33,11 +33,16 @@ export const authOptions = {
     })
   ],
   pages: {
-    signIn: '/auth/signin',
-    signUp: '/auth/signup'
+    signIn: '/login',
+    signUp: '/signup'
   },
   session: {
     strategy: 'jwt'
+  },
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      return baseUrl + '/dashboard'
+    }
   }
 }
 
